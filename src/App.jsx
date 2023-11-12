@@ -10,6 +10,7 @@ function App() {
   const [skills, setSkills] = useState([]);
   const [interest, setInterest] = useState([]);
   const [hobby, setHobby] = useState([]);
+  const [education , setEducation] =useState([]);
   function addSkill() {
     let temp = [...skills];
     temp.push("");
@@ -54,6 +55,24 @@ function removeHobby(index){
   temp.splice(index, 1);
   setHobby(temp);
   console.log(index)
+}
+function addEducation(){
+  let temp = [...education];
+  let obj = {
+    college : '',
+    degree : '',
+    percentage: '',
+    startYear: '',
+    endYear: ''
+  }
+  temp.push(obj);
+  setEducation(temp);
+}
+
+function removeEducation(index){
+  let temp=[...education];
+  temp.splice(index,1);
+  setEducation(temp);
 }
   return (
     <>
@@ -163,6 +182,8 @@ function removeHobby(index){
           <br></br>
           <br></br>
 
+{/*  ################################### Skills ########################################## */}
+
           <div className="box-container" id="num">
             <div type="text">Skills:</div>
             {/* <TextField placeholder="Enter a skill:" classname="box" variant="outlined" />
@@ -194,6 +215,8 @@ function removeHobby(index){
           <br></br>
           <br></br>
 
+ {/* ################################### Interest ########################################  */}
+
           <div className="box-container">
             <div type="text">Area of interest:</div>
             {/* <TextField placeholder="Enter a interest" className="box" variant="outlined"
@@ -223,12 +246,17 @@ function removeHobby(index){
           <br></br>
           <br></br>
 
+ {/* ################################### Education ######################################*/}
+
           <div type="text" className="heading">
             Education:
           </div>
           <br></br>
           <br></br>
 
+          {education.map((element,index)=>{
+            return(
+              <>
           <div className="class-container">
             <div type="text">College/School</div>
             <TextField
@@ -280,10 +308,15 @@ function removeHobby(index){
           <br></br>
           <br></br>
 
-          <Button variant="text">Remove</Button>
+          <Button variant="text" onClick={()=>removeEducation(index)}>Remove</Button>
           <br></br>
           <br></br>
-          <Button variant="contained">Add Education</Button>
+          </>
+          )
+        })}
+
+
+          <Button variant="contained" onClick={addEducation}>Add Education</Button>
           <br></br>
           <br></br>
 
