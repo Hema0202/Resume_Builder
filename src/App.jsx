@@ -11,6 +11,9 @@ function App() {
   const [interest, setInterest] = useState([]);
   const [hobby, setHobby] = useState([]);
   const [education , setEducation] =useState([]);
+  const [project, setProject] = useState([]);
+  const [experience, setExperience] = useState([]);
+
   function addSkill() {
     let temp = [...skills];
     temp.push("");
@@ -73,6 +76,42 @@ function removeEducation(index){
   let temp=[...education];
   temp.splice(index,1);
   setEducation(temp);
+}
+
+function addProject(){
+  let temp=[...project];
+  let obj={
+    ProjectTitle:'',
+    ProjectLink:'',
+    ProjectDescription:''
+  }
+  temp.push(obj);
+  setProject(temp);
+}
+
+function removeProject(index){
+  let temp = [...project];
+  temp.splice(index,1);
+  setProject(temp);
+}
+
+function addExperience(){
+  let temp = [...experience];
+  let obj={
+    companyName:'',
+    designation:'' ,
+    description:'',
+    starting:'',
+    ending: ''
+  }
+  temp.push(obj);
+  setExperience(temp);
+}
+
+function removeExperience(index){
+  let temp = [...experience];
+  temp.splice(index, 1);
+  setExperience(temp);
 }
   return (
     <>
@@ -326,6 +365,9 @@ function removeEducation(index){
           <br></br>
           <br></br>
 
+          {project.map((element,index)=>{
+            return(
+              <>
           <div className="box-container">
             <div type="text">Project title:</div>
             <TextField
@@ -359,10 +401,14 @@ function removeEducation(index){
           <br></br>
           <br></br>
 
-          <Button variant="text">Remove</Button>
+          <Button variant="text" onClick={()=>
+          removeProject(index)}>Remove</Button>
           <br></br>
           <br></br>
-          <Button variant="contained">Add Project</Button>
+          </>
+            )
+          })}
+          <Button variant="contained" onClick={addProject}>Add Project</Button>
           <br></br>
           <br></br>
 
@@ -372,7 +418,10 @@ function removeEducation(index){
           <br></br>
           <br></br>
 
-          <div className="box-container">
+          {experience.map((element,index)=>{
+            return(
+              <>
+            <div className="box-container">
             <div type="text">Company Name:</div>
             <TextField
               placeholder="ex.company name"
@@ -428,10 +477,14 @@ function removeEducation(index){
           <br></br>
           <br></br>
 
-          <Button variant="text">Remove</Button>
+          <Button variant="text" onClick={()=>removeExperience(index)}>Remove</Button>
           <br></br>
           <br></br>
-          <Button variant="contained">Add Experience</Button>
+          </>
+            )
+          })
+          }
+          <Button variant="contained" onClick={addExperience}>Add Experience</Button>
           <br></br>
           <br></br>
 
