@@ -7,12 +7,47 @@ import TextField from "@mui/material/TextField";
 import DateRangeIcon from "@mui/icons-material/DateRange";
 
 function App() {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [linkedinName, setLinkedinName] = useState('');
+  const [linkedinLink, setLinkedinLink] = useState('');
+  const [githubName, setGithubName] = useState('');
+  const [githubLink, setGithubLink] = useState('');
   const [skills, setSkills] = useState([]);
   const [interest, setInterest] = useState([]);
   const [hobby, setHobby] = useState([]);
   const [education , setEducation] =useState([]);
   const [project, setProject] = useState([]);
   const [experience, setExperience] = useState([]);
+
+  function changeNameHandler(event){
+   setName ( event.target.value)
+  }
+
+  function changeEmailHandler(event){
+    setEmail ( event.target.value)
+   }
+
+   function changePhoneHandler(event){
+    setPhone ( event.target.value)
+   }
+
+  //  function changeLinkedinNameHandler(event){
+  //   setLinkedinName ( event.target.value)
+  //  }
+
+   function changeLinkedinLinkHandler(event){
+    setLinkedinLink ( event.target.value)
+   }
+
+  //  function changeGithubNameHandler(event){
+  //   setName ( event.target.value)
+  //  }
+
+   function changeGithubLinkHandler(event){
+    setName ( event.target.value)
+   }
 
   function addSkill() {
     let temp = [...skills];
@@ -28,7 +63,7 @@ function App() {
     setSkills(temp);
   }
 
-  function changeHandler(e,index){
+  function skillChangeHandler(e,index){
       let temp =[...skills];
       temp[index]=e.target.value;
       setSkills(temp);
@@ -47,6 +82,12 @@ function removeInterest(index){
   console.log(index);
 }
 
+function interestChangeHandler(e, index){
+let temp = [...interest];
+temp[index]=e.target.value;
+setInterest(temp);
+}
+
 function addHobby(){
   let temp =[...hobby];
   temp.push("");
@@ -58,6 +99,12 @@ function removeHobby(index){
   temp.splice(index, 1);
   setHobby(temp);
   console.log(index)
+}
+
+function hobbyChangeHandler(e,index){
+  let temp=[...hobby];
+  temp[index]=e.target.value;
+  setHobby(temp);
 }
 function addEducation(){
   let temp = [...education];
@@ -78,6 +125,12 @@ function removeEducation(index){
   setEducation(temp);
 }
 
+function changeEducationHandler(event, index, field){
+  let temp =[...education];
+  temp[index][field]=event.target.value;
+  setEducation(temp);
+}
+
 function addProject(){
   let temp=[...project];
   let obj={
@@ -92,6 +145,12 @@ function addProject(){
 function removeProject(index){
   let temp = [...project];
   temp.splice(index,1);
+  setProject(temp);
+}
+
+function changeProjectHandler(event,index, field){
+  let temp=[...project];
+  temp[index][field]=event.target.value
   setProject(temp);
 }
 
@@ -111,6 +170,12 @@ function addExperience(){
 function removeExperience(index){
   let temp = [...experience];
   temp.splice(index, 1);
+  setExperience(temp);
+}
+
+function changeExperienceHandler(event, index, field){
+  let temp = [...experience];
+  temp[index][field]=event.target.value
   setExperience(temp);
 }
   return (
@@ -133,6 +198,8 @@ function removeExperience(index){
           </div>
           <br></br>
 
+          {/*  ################################### Personal ########################################## */}
+
           <div type="text" className="heading">
             Personal details:
             <hr></hr>
@@ -147,6 +214,8 @@ function removeExperience(index){
               label=""
               className="box"
               variant="outlined"
+              value={name}
+              onChange={(event)=>changeNameHandler(event)}
             />
           </div>
           <br></br>
@@ -154,7 +223,9 @@ function removeExperience(index){
 
           <div className="box-container">
             <div type="text">Email:</div>
-            <TextField placeholder="Email" className="box" variant="outlined" />
+            <TextField placeholder="Email" className="box" variant="outlined" 
+            value={email}
+            onChange={(event)=>changeEmailHandler(event)}/>
           </div>
           <br></br>
           <br></br>
@@ -165,19 +236,23 @@ function removeExperience(index){
               placeholder="Phone no"
               className="box"
               variant="outlined"
+              value={phone}
+              onChange={(event)=>changePhoneHandler(event)}
             />
           </div>
           <br></br>
           <br></br>
 
-          <div className="box-container">
+          {/* <div className="box-container">
             <div type="text">Linkedin Name:</div>
             <TextField
               placeholder="Linkedin name"
               className="box"
               variant="outlined"
+              value={linkedinName}
+              onChange={(event)=>changeLinkedinNameHandler(event)}
             />
-          </div>
+          </div> */}
           <br></br>
           <br></br>
 
@@ -187,21 +262,25 @@ function removeExperience(index){
               placeholder="Linkedin link"
               className="box"
               variant="outlined"
+              value={linkedinLink}
+              onChange={(event)=>changeLinkedinLinkHandler(event)}
             />
           </div>
           <br></br>
           <br></br>
 
-          <div className="box-container">
+          {/* <div className="box-container">
             <div type="text">Github Name:</div>
             <TextField
               placeholder="Github name"
               className="box"
               variant="outlined"
+              value={githubName}
+              onChange={(event)=>changeGithubNameHandler(event)}
             />
           </div>
           <br></br>
-          <br></br>
+          <br></br> */}
 
           <div className="box-container">
             <div type="text">Github Link:</div>
@@ -209,6 +288,8 @@ function removeExperience(index){
               placeholder="Github link"
               className="box"
               variant="outlined"
+              value={githubLink}
+              onChange={(event)=>changeGithubLinkHandler(event)}
             />
           </div>
           <br></br>
@@ -237,7 +318,7 @@ function removeExperience(index){
                     className="box"
                     variant="outlined"
                     value={element}
-                    onChange={e=>changeHandler(e, index)}
+                    onChange={e=>skillChangeHandler(e, index)}
                   />
                   <Button variant="text" onClick={() => removeSkill(index)}>
                     Remove
@@ -270,6 +351,8 @@ function removeExperience(index){
                     placeholder="Enter a interest"
                     className="box"
                     variant="outlined"
+                    value={element}
+                    onChange={e=>interestChangeHandler(e,index)}
                   />
                   <Button variant="text" onClick={()=> removeInterest(index)}>Remove</Button>
             <br></br>
@@ -302,10 +385,14 @@ function removeExperience(index){
               placeholder="ex.Miranda college"
               className="box"
               variant="outlined"
+              value={element.college}
+              onChange={(event)=>
+              changeEducationHandler(event,index,'college' )}
             />
           </div>
           <br></br>
           <br></br>
+          
 
           <div className="class-container">
             <div type="text">Degree</div>
@@ -313,6 +400,9 @@ function removeExperience(index){
               placeholder="Bachlor's information Technology/Higher seondary education"
               className="box"
               variant="outlined"
+              value={element.degree}
+              onChange={(event)=>
+              changeEducationHandler(event,index,'degree' )}
             />
           </div>
           <br></br>
@@ -320,7 +410,11 @@ function removeExperience(index){
 
           <div className="class-container">
             <div type="text">Percentage</div>
-            <TextField placeholder="80%" className="box" variant="outlined" />
+            <TextField placeholder="80%" className="box" variant="outlined" 
+            value={element.percentage}
+            onChange={(event)=>
+            changeEducationHandler(event,index,'percentage' )}
+            />
           </div>
           <br></br>
           <br></br>
@@ -331,6 +425,9 @@ function removeExperience(index){
               placeholder="ex.2020"
               className="box"
               variant="outlined"
+              value={element.startYear}
+              onChange={(event)=>
+              changeEducationHandler(event,index,'startYear' )}
             />
           </div>
           <br></br>
@@ -342,6 +439,9 @@ function removeExperience(index){
               placeholder="ex.2024"
               className="box"
               variant="outlined"
+              value={element.endYear}
+              onChange={(event)=>
+              changeEducationHandler(event,index,'endYear' )}
             />
           </div>
           <br></br>
@@ -365,6 +465,9 @@ function removeExperience(index){
           <br></br>
           <br></br>
 
+
+           {/*  ################################### Project ########################################## */}
+
           {project.map((element,index)=>{
             return(
               <>
@@ -374,6 +477,8 @@ function removeExperience(index){
               placeholder="ex.Resume Builder"
               className="box"
               variant="outlined"
+              value={element.ProjectTitle}
+              onChange={(event)=>changeProjectHandler(event,index,'projectTitle')}
             />
           </div>
           <br></br>
@@ -385,6 +490,8 @@ function removeExperience(index){
               placeholder="project direct link"
               className="box"
               variant="outlined"
+              value={element.projectLink}
+              onChange={(event)=>changeProjectHandler(event,index,'projectLink')}
             />
           </div>
           <br></br>
@@ -396,6 +503,8 @@ function removeExperience(index){
               placeholder="ex. A website where user can generate their resume in a standard format"
               className="box"
               variant="outlined"
+              value={element.ProjectDescription}
+              onChange={(event)=>changeProjectHandler(event,index,'projectDescription')}
             />
           </div>
           <br></br>
@@ -412,6 +521,8 @@ function removeExperience(index){
           <br></br>
           <br></br>
 
+          {/*  ################################### Experience ########################################## */}
+
           <div className="heading" type="text">
             Experience:
           </div>
@@ -427,6 +538,8 @@ function removeExperience(index){
               placeholder="ex.company name"
               className="box"
               variant="outlined"
+              value={element.companyName}
+              onChange={(event)=>changeExperienceHandler(event, index, 'companyName')}
             />
           </div>
           <br></br>
@@ -438,6 +551,8 @@ function removeExperience(index){
               placeholder="ex. your designation"
               className="box"
               variant="outlined"
+              value={element.designation}
+              onChange={(event)=>changeExperienceHandler(event, index, 'designation')}
             />
           </div>
           <br></br>
@@ -488,6 +603,9 @@ function removeExperience(index){
           <br></br>
           <br></br>
 
+          {/*  ################################### Hobbies ########################################## */}
+
+
           <div className="box-container">
             <div type="text">Hobbies:</div>
             {/* <TextField
@@ -509,6 +627,8 @@ function removeExperience(index){
               placeholder="Enter Hobbies"
               className="box"
               variant="outlined"
+              value={element}
+              onChange={e=>hobbyChangeHandler(e,index)}
             />
             <Button variant="text" onClick={()=> removeHobby(index)}>Remove</Button>
                 
