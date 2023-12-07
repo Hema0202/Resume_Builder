@@ -5,6 +5,7 @@ import "./App.css";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import DateRangeIcon from "@mui/icons-material/DateRange";
+import {Navigate} from "react-router-dom";
 
 function App() {
   const [name, setName] = useState('');
@@ -180,6 +181,7 @@ function changeExperienceHandler(event, index, field){
 }
   return (
     <>
+    {!email && <Navigate to="/login"/>}
       <div className="form">
         <div className="container">
           <br></br>

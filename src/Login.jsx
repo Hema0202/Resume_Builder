@@ -1,21 +1,54 @@
-import React from 'react'
-import './Login.css'
+import React, { useState } from "react";
+import "./Login.css";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-export default function Login() {
-  return (
-   <>
-   {/* <div className="hi">Hello world</div> */}
-   <div className="container2">
-    <div className="name">Login</div>
-    <div className="infor">Doesn't have account yet?Sign Up</div>
-    <div type="text">Email Address</div>
-            <TextField placeholder="Email" className="box" variant="outlined"/>
-    <br></br>
-    <div type="text">Password</div>
-    <TextField placeholder='enter your password' className='box' variant='outlined'/>
+import { Navigate, useNavigate } from "react-router-dom";
 
-   </div>
-   </>
-  )
+export default function Login() {
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const navigate = useNavigate();
+
+  function changeUsernameHandler(event){
+    setUsername ( event.target.value)
+   }
+  function changePasswordHandler(event){
+    setPassword ( event.target.value)
+   }
+  function login() {
+
+  }
+
+  function redirectToSignup(){
+    navigate('/signup')
+  }
+  return (
+    <>
+      <div className="login-page-container">
+        <h1>Login</h1>
+        <hr />
+        <TextField
+          placeholder="Username"
+          className="login-input"
+          variant="standard"
+          value={username}
+          onChange={(event)=>changeUsernameHandler(event)}
+        />
+        <TextField
+          placeholder="Password"
+          className="login-input"
+          variant="standard"
+          value={password}
+          onChange={(event)=>changePasswordHandler(event)}
+          type="password"
+        />
+        <Button variant="contained" onClick={login}>
+          Login
+        </Button>
+        <div>
+          Not a Member? <span onClick={redirectToSignup}>Signup</span>
+        </div>
+      </div>
+    </>
+  );
 }
