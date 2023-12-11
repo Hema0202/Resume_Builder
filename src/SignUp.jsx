@@ -3,6 +3,7 @@ import Button from "@mui/material/Button";
 import './SignUp.css';
 import TextField from "@mui/material/TextField";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export default function SignUp() {
   const [name, setName] = useState("");
@@ -11,8 +12,21 @@ export default function SignUp() {
   const [confirm, setConfirm] = useState("");
   const navigate = useNavigate()
 
-  function signup(){
-    
+
+ async function signup(){
+    const res=await axios.post('http://localhost:4000/signup',{
+      name:name,
+      email:email,
+      password:password
+    })
+    console.log(res.data.status)
+    if(res.data.status==false){
+      alert(res.data.message)
+    }
+    else{
+      alert('Your profile created successfully!')
+      redirectToLogin();
+    }
   }
   function changeNameHandler(event){
     setName ( event.target.value)

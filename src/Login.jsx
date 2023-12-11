@@ -3,6 +3,7 @@ import "./Login.css";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { Navigate, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export default function Login() {
   const [username, setUsername] = useState('')
@@ -15,9 +16,22 @@ export default function Login() {
   function changePasswordHandler(event){
     setPassword ( event.target.value)
    }
-  function login() {
-
+  async function login() {
+    const res=await axios.post('http://localhost:4000/login',{
+      email:username,
+      password:password
+    })
+    console.log(res.data.status)
+    if(res.data.status==false){
+      alert(res.data.message)
+    }
+    else{
+      localStorage.setItem("token",res.data.token);
+      localStorage.setItem('email',res.data.data.email);
+      navigate('/')
+    }
   }
+  
 
   function redirectToSignup(){
     navigate('/signup')

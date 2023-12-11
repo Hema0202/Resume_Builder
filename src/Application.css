@@ -3,24 +3,67 @@
     padding: 0;
 }
 
-.form1{
+/* .form1{
     height:auto;
     width:100vw;
     background-color: pink;
 
+} */
+
+body{
+    background-color: rgb(230, 230, 236);
 }
-.container1{
+.application-page-container{
+    padding: 5%;
     height:842px;
-    width:595px;
+    width:700px;
     border:2px solid black;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: aqua;
+    /* justify-content: space-around; */
+    /* align-items: center; */
+    background-color: white;
 }
 
 .head{
     font: 1em sans-serif;
     font-weight: bold;
+}
+
+.application-page-container .left{
+    width:50%;
+    color:black;
+}
+.application-page-container .right{
+    width:50%;
+    color:black;
+}
+
+.application-page-container .capitalize{
+    text-transform: capitalize;
+
+}
+
+.resume-content-container{
+    display: flex;
+    align-items:flex-start;
+    justify-content: flex-start;
+}
+
+.resume-content-container .left-container{
+width:50%;
+
+}
+
+.resume-content-container .right-container{
+    width:50%;
+    
+}
+
+.application-page-container h1{
+   margin-top: 10px;
+}
+
+.application-page-container hr{
+    margin-bottom: 5px;
 }

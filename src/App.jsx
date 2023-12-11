@@ -5,15 +5,17 @@ import "./App.css";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import DateRangeIcon from "@mui/icons-material/DateRange";
-import {Navigate} from "react-router-dom";
+import {Navigate, useNavigate} from "react-router-dom";
+import axios from 'axios';
+
 
 function App() {
   const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
+  // const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
-  const [linkedinName, setLinkedinName] = useState('');
+  // const [linkedinName, setLinkedinName] = useState('');
   const [linkedinLink, setLinkedinLink] = useState('');
-  const [githubName, setGithubName] = useState('');
+  // const [githubName, setGithubName] = useState('');
   const [githubLink, setGithubLink] = useState('');
   const [skills, setSkills] = useState([]);
   const [interest, setInterest] = useState([]);
@@ -21,6 +23,39 @@ function App() {
   const [education , setEducation] =useState([]);
   const [project, setProject] = useState([]);
   const [experience, setExperience] = useState([]);
+  const navigate = useNavigate()
+  
+  async function submit(){
+    let data = {
+     name:name,
+     phone:phone,
+     linkedinLink:linkedinLink,
+     githubLink:githubLink,
+     skills:skills,
+     interest:interest,
+     hobby:hobby,
+     education:education,
+     project:project,
+     experience:experience,
+     email:localStorage.getItem('email')
+    }
+    
+    let res = await axios.post('http://localhost:4000/resume',
+    data,{headers:{
+      'x-api-key':localStorage.getItem("token")
+    }}
+   
+    )
+    console.log(res)
+    if(res.data.status==false){
+      alert(res.data.message)
+    }
+    else{
+      alert(res.data.message)
+      navigate('/resume');
+    }
+}
+
 
   function changeNameHandler(event){
    setName ( event.target.value)
@@ -47,7 +82,7 @@ function App() {
   //  }
 
    function changeGithubLinkHandler(event){
-    setName ( event.target.value)
+    setGithubLink ( event.target.value)
    }
 
   function addSkill() {
@@ -135,9 +170,9 @@ function changeEducationHandler(event, index, field){
 function addProject(){
   let temp=[...project];
   let obj={
-    ProjectTitle:'',
-    ProjectLink:'',
-    ProjectDescription:''
+    projectTitle:'',
+    projectLink:'',
+    projectDescription:''
   }
   temp.push(obj);
   setProject(temp);
@@ -179,9 +214,11 @@ function changeExperienceHandler(event, index, field){
   temp[index][field]=event.target.value
   setExperience(temp);
 }
+
+
   return (
     <>
-    {!email && <Navigate to="/login"/>}
+    {!localStorage.getItem('token') && <Navigate to="/login"/>}
       <div className="form">
         <div className="container">
           <br></br>
@@ -223,14 +260,13 @@ function changeExperienceHandler(event, index, field){
           <br></br>
           <br></br>
 
-          <div className="box-container">
+          {/* <div className="box-container">
             <div type="text">Email:</div>
             <TextField placeholder="Email" className="box" variant="outlined" 
             value={email}
             onChange={(event)=>changeEmailHandler(event)}/>
-          </div>
-          <br></br>
-          <br></br>
+          </div> */}
+          
 
           <div className="box-container">
             <div type="text">Phone No.</div>
@@ -566,6 +602,8 @@ function changeExperienceHandler(event, index, field){
               placeholder="ex. your responsibilities or your work experience"
               className="box"
               variant="outlined"
+              value={element.description}
+              onChange={(event)=>changeExperienceHandler(event, index, 'description')}
             />
           </div>
           <br></br>
@@ -574,10 +612,12 @@ function changeExperienceHandler(event, index, field){
           <div className="box-container">
             <div type="text">Starting:</div>
             <TextField
-              placeholder="dd/mm/yyyy"
+              
               type="date"
               className="box"
               variant="outlined"
+              value={element.starting}
+              onChange={(event)=>changeExperienceHandler(event, index, 'starting')}
             />
           </div>
           <br></br>
@@ -586,9 +626,11 @@ function changeExperienceHandler(event, index, field){
           <div className="box-container">
             <div type="text">Ending:</div>
             <TextField
-              placeholder="dd/mm/yyyy"
+              type="date"
               className="box"
               variant="outlined"
+              value={element.ending}
+              onChange={(event)=>changeExperienceHandler(event, index, 'ending')}
             />
           </div>
           <br></br>
@@ -640,6 +682,10 @@ function changeExperienceHandler(event, index, field){
 
           }
           <Button variant="contained" onClick={addHobby}>Add a Hobby</Button>
+          <br></br>
+          <br></br>
+
+          <Button variant="contained" onClick={submit}>Submit</Button>
           <br></br>
           <br></br>
         </div>
